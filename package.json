@@ -4,11 +4,12 @@
   "description": "Startup front-end project",
   "repository": {
     "type": "git",
-    "url": "?.git"
+    "url": "https://github.com/elationbase/workflow.git"
   },
   "author": "Alvaro Montero",
   "devDependencies": {
     "gulp": "^3.8.11",
+    "gulp-coffee": "^2.3.1",
     "gulp-util": "^3.0.4"
   }
 }
