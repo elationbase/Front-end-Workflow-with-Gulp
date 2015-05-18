@@ -1,0 +1,14 @@
+{
+  "name": "workflows",
+  "version": "1.0.0",
+  "description": "Startup front-end project",
+  "repository": {
+    "type": "git",
+    "url": "?.git"
+  },
+  "author": "Alvaro Montero",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-util": "^3.0.4"
+  }
+}
