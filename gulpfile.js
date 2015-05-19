@@ -42,8 +42,9 @@ gulp.task('watch', function () {
 	gulp.watch(coffeeFiles, ['coffee']);
 	gulp.watch(jsFiles, ['js'])
 	gulp.watch('components/sass/*.scss', ['compass']);
+	
 });
 
 
-gulp.task('default', ['coffee', 'js', 'compass']);
+gulp.task('default', ['coffee', 'js', 'compass', 'watch']);
 
