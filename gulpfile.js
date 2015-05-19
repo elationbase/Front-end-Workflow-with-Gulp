@@ -42,6 +42,24 @@ gulp.task('compass', function (){
 });
 
 
+var htmlScr = 'builts/development/',
+     htmlFiles = [htmlScr+ '*.html'];
+gulp.task('html', function () {
+	gulp
+		.src(htmlFiles)
+		.pipe(connect.reload())
+});
+
+
+var jsonScr = 'builts/development/js/',
+     jsonFiles = [jsonScr+ '*.json'];
+gulp.task('json', function () {
+	gulp
+		.src(jsonFiles)
+		.pipe(connect.reload())
+});
+
+
 gulp.task('connect', function () {
 	connect.server({
 		root: 'builts/development/',
@@ -52,10 +70,12 @@ gulp.task('connect', function () {
 
 gulp.task('watch', function () {
 	gulp.watch(coffeeFiles, ['coffee']);
-	gulp.watch(jsFiles, ['js'])
+	gulp.watch(jsFiles, ['js']);
 	gulp.watch('components/sass/*.scss', ['compass']);	
+	gulp.watch(htmlFiles, ['html']);
+	gulp.watch(jsonFiles, ['json']);
 });
 
 
-gulp.task('default', ['coffee', 'js', 'compass', 'connect', 'watch']);
+gulp.task('default', ['coffee', 'js', 'json', 'compass', 'connect', 'watch']);
 
