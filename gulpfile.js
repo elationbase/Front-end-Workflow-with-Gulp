@@ -4,70 +4,97 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	browserify = require('gulp-browserify'),
 	compass = require('gulp-compass'),
-	connect = require('gulp-connect');
+	connect = require('gulp-connect'),
+	gulpif = require('gulp-if'),
+	uglify = require('gulp-uglify');
 
-var coffeeScr = 'components/coffee/',
-	coffeeFiles = [coffeeScr + '*.coffee'];
+
+
+// Check for environment and set deault to dev
+var env = process.env.NODE_ENV || 'development';
+
+
+// Sources and file vars
+var coffeeScr, coffeeFiles, jsFiles, sassFiles, htmlFiles, jsonFiles, outputDir, sassStyle;
+
+if ( env ==='development') {
+	outputDir = 'builts/development/';
+	sassStyle = 'expanded';
+} else {
+	outputDir = 'builts/production/';
+	sassStyle = 'compressed';
+}
+
+// COFFEE Script files
+coffeeScr = 'components/coffee/';
+coffeeFiles = [coffeeScr + '*.coffee'];
+
 gulp.task('coffee', function () {
 	gulp
 		.src(coffeeFiles)
 		.pipe(coffee({bare: true})
-		.on('error', gulpUtil.log))
+			.on('error', gulpUtil.log)
+		)
 		.pipe(gulp.dest('components/scripts'))
 });
 
-var jsScr = 'components/scripts/',
-    jsFiles = [jsScr+ '*.js'];
+// JS files
+jsFiles = ['components/scripts/*.js'];
+
 gulp.task('js', function () {
 	gulp
 		.src(jsFiles)
 		.pipe(concat('script.js'))
 		.pipe(browserify())
-		.pipe(gulp.dest('builts/development/js'))
+		.pipe(gulpif(env === 'production', uglify()))
+		.pipe(gulp.dest(outputDir + 'js'))
 		.pipe(connect.reload())
 });
 
-var sassFiles = ['components/sass/style.scss'];
+// CSS & SASS files
+sassFiles = ['components/sass/style.scss'];
+
 gulp.task('compass', function (){
 	gulp
 		.src(sassFiles)
 		.pipe(compass({
 			sass: 'components/sass',
-			image: 'builts/development/images',
-			style: 'compact'
+			image: outputDir + 'images',
+			style: sassStyle
 		})
 		.on('error', gulpUtil.log))
-		.pipe(gulp.dest('builts/development/css'))
+		.pipe(gulp.dest(outputDir + 'css'))
 		.pipe(connect.reload())
 });
 
+// HTML files
+htmlFiles = [outputDir + '*.html'];
 
-var htmlScr = 'builts/development/',
-     htmlFiles = [htmlScr+ '*.html'];
 gulp.task('html', function () {
 	gulp
 		.src(htmlFiles)
 		.pipe(connect.reload())
 });
 
+// JSON files
+jsonFiles = [outputDir + '*.json'];
 
-var jsonScr = 'builts/development/js/',
-     jsonFiles = [jsonScr+ '*.json'];
 gulp.task('json', function () {
 	gulp
 		.src(jsonFiles)
 		.pipe(connect.reload())
 });
 
-
+// http server & Live reload
 gulp.task('connect', function () {
 	connect.server({
-		root: 'builts/development/',
+		root: outputDir,
 		livereload: true
 	});
 });
 
 
+// Gulp watch
 gulp.task('watch', function () {
 	gulp.watch(coffeeFiles, ['coffee']);
 	gulp.watch(jsFiles, ['js']);
