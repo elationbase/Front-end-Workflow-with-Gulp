@@ -14,12 +14,12 @@ var gulp = require('gulp'),
 
 
 // File Location vars
-var htmlFiles = ['builts/development/*.html'],
+var htmlFiles = ['builds/development/*.html'],
 	jsFiles   = ['components/scripts/*.js'],
 	sassFiles = ['components/sass/style.scss'],
-	htmlFiles = ['builts/development/*.html'],
-	jsonFiles = ['builts/development/js/*.json'],
-	imgFiles  = ['builts/development/img/**/*.*'];
+	htmlFiles = ['builds/development/*.html'],
+	jsonFiles = ['builds/development/js/*.json'],
+	imgFiles  = ['builds/development/img/**/*.*'];
 
 
 // Check for environment and set deault to dev
@@ -32,10 +32,10 @@ var outputDir, sassStyle;
 
 // Set options based on environment
 if ( env ==='development') {
-	outputDir = 'builts/development/';
+	outputDir = 'builds/development/';
 	sassStyle = 'expanded';
 } else {
-	outputDir = 'builts/production/';
+	outputDir = 'builds/production/';
 	sassStyle = 'compressed';
 }
 

@@ -1,5 +1,10 @@
 # Front-end Developer Workflow with Gulp
-Start up front end project with HTML, SASS, JS, JSON, jQuery. Including 2 build environments (development and production).
+Start up front end project with HTML, SASS, JS, JSON, jQuery. 
+*2 build environments (development and production).
+*CSS with SASS: Auto-prefixer, concatenate and minify
+*JavaScript & jQuery: Concatenate and minify
+*JSON: Minify
+*HTML: Minify
 
 ## Get ready
 ###First clone or download this repo
@@ -54,13 +59,10 @@ $ NODE_ENV=production gulp
 
 ## License
 Copyright (c) 2015 Elation Base Licensed under the MIT license.
-
-/*
- * Front-end Developer Workflow with Gulp
- * https://github.com/elationbase/workflow/
- * <a href="http://elationbase.com/">http://elationbase.com/</a>
- * Copyright 2015, elationbase
- * Start up front end project with HTML, SASS, JS, JSON, jQuery. Including 2 build environments (development and production).
- * Free to use under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
-*/
+Front-end Developer Workflow with Gulp
+https://github.com/elationbase/workflow/
+<a href="http://elationbase.com/">http://elationbase.com/</a>
+Copyright 2015, elationbase
+Start up front end project with HTML, SASS, JS, JSON, jQuery. Including 2 build environments (development and production).
+Free to use under the MIT license.
+http://www.opensource.org/licenses/mit-license.php
