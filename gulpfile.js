@@ -5,9 +5,10 @@ var gulp = require('gulp'),
 	browserify = require('gulp-browserify'),
 	compass = require('gulp-compass'),
 	connect = require('gulp-connect'),
-	gulpif = require('gulp-if'),
+	gulpif = require('gulp-if')
 	uglify = require('gulp-uglify'),
-	minifyHtml = require('gulp-minify-html');
+	minifyHtml = require('gulp-minify-html')
+	minifyJson = require('gulp-jsonminify');
 
 
 
@@ -85,6 +86,7 @@ jsonFiles = ['builts/development/js/*.json'];
 gulp.task('json', function () {
 	gulp
 		.src(jsonFiles)
+		.pipe(gulpif(env === 'production', minifyJson()))
 		.pipe(gulp.dest(outputDir + 'js'))
 		.pipe(connect.reload())
 });
