@@ -6,7 +6,8 @@ var gulp = require('gulp'),
 	compass = require('gulp-compass'),
 	connect = require('gulp-connect'),
 	gulpif = require('gulp-if'),
-	uglify = require('gulp-uglify');
+	uglify = require('gulp-uglify'),
+	minifyHtml = require('gulp-minify-html');
 
 
 
@@ -68,20 +69,23 @@ gulp.task('compass', function (){
 });
 
 // HTML files
-htmlFiles = [outputDir + '*.html'];
+htmlFiles = ['builts/development/*.html'];
 
 gulp.task('html', function () {
 	gulp
 		.src(htmlFiles)
+		.pipe(gulpif(env === 'production', minifyHtml()))
+		.pipe(gulpif(env === 'production', gulp.dest(outputDir)))
 		.pipe(connect.reload())
 });
 
 // JSON files
-jsonFiles = [outputDir + '*.json'];
+jsonFiles = ['builts/development/js/*.json'];
 
 gulp.task('json', function () {
 	gulp
 		.src(jsonFiles)
+		.pipe(gulp.dest(outputDir + 'js'))
 		.pipe(connect.reload())
 });
 
