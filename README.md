@@ -1,10 +1,10 @@
 # Front-end Developer Workflow with Gulp
 Start up front end project with HTML, SASS, JS, JSON, jQuery. 
-*2 build environments (development and production).
-*CSS with SASS: Auto-prefixer, concatenate and minify
-*JavaScript & jQuery: Concatenate and minify
-*JSON: Minify
-*HTML: Minify
+* 2 build environments (development and production).
+* CSS with SASS: Auto-prefixer, concatenate and minify
+* JavaScript & jQuery: Concatenate and minify
+* JSON: Minify
+* HTML: Minify
 
 ## Get ready
 ###First clone or download this repo
@@ -19,7 +19,7 @@ cd /Users/YOUR_NAME/Downloads/workflow-master
 
 ## Install Project
 ### Install <a href="http://gulpjs.com/">gulp</a>
-// Note: If you ahve any erros stalling gulp or it's modules try using "sudo" before "npm install"
+_Note: If you ahve any erros installing gulp or it's modules, try using "sudo" before "npm install"_
 
 if you don't have gulp installed globally 
 ```
