@@ -1,24 +1,36 @@
 var gulp = require('gulp'),
 	gulpUtil = require('gulp-util'),
-	coffee = require('gulp-coffee'),
 	concat = require('gulp-concat'),
 	browserify = require('gulp-browserify'),
 	compass = require('gulp-compass'),
+	autoprefixer = require('gulp-autoprefixer'),
 	connect = require('gulp-connect'),
 	gulpif = require('gulp-if')
 	uglify = require('gulp-uglify'),
-	minifyHtml = require('gulp-minify-html')
-	minifyJson = require('gulp-jsonminify');
+	minifyHtml = require('gulp-minify-html'),
+	minifyJson = require('gulp-jsonminify'),
+	imagemin = require('gulp-imagemin'),
+	pngcrush = require('imagemin-pngcrush');
 
+
+// File Location vars
+var htmlFiles = ['builts/development/*.html'],
+	jsFiles   = ['components/scripts/*.js'],
+	sassFiles = ['components/sass/style.scss'],
+	htmlFiles = ['builts/development/*.html'],
+	jsonFiles = ['builts/development/js/*.json'],
+	imgFiles  = ['builts/development/img/**/*.*'];
 
 
 // Check for environment and set deault to dev
 var env = process.env.NODE_ENV || 'development';
 
 
-// Sources and file vars
-var coffeeScr, coffeeFiles, jsFiles, sassFiles, htmlFiles, jsonFiles, outputDir, sassStyle;
+// Options vars
+var outputDir, sassStyle;
 
+
+// Set options based on environment
 if ( env ==='development') {
 	outputDir = 'builts/development/';
 	sassStyle = 'expanded';
@@ -27,22 +39,8 @@ if ( env ==='development') {
 	sassStyle = 'compressed';
 }
 
-// COFFEE Script files
-coffeeScr = 'components/coffee/';
-coffeeFiles = [coffeeScr + '*.coffee'];
-
-gulp.task('coffee', function () {
-	gulp
-		.src(coffeeFiles)
-		.pipe(coffee({bare: true})
-			.on('error', gulpUtil.log)
-		)
-		.pipe(gulp.dest('components/scripts'))
-});
 
 // JS files
-jsFiles = ['components/scripts/*.js'];
-
 gulp.task('js', function () {
 	gulp
 		.src(jsFiles)
@@ -54,8 +52,6 @@ gulp.task('js', function () {
 });
 
 // CSS & SASS files
-sassFiles = ['components/sass/style.scss'];
-
 gulp.task('compass', function (){
 	gulp
 		.src(sassFiles)
@@ -63,15 +59,15 @@ gulp.task('compass', function (){
 			sass: 'components/sass',
 			image: outputDir + 'images',
 			style: sassStyle
-		})
-		.on('error', gulpUtil.log))
+			})
+			.on('error', gulpUtil.log)
+		)
+		.pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4', 'Firefox ESR'))
 		.pipe(gulp.dest(outputDir + 'css'))
 		.pipe(connect.reload())
 });
 
 // HTML files
-htmlFiles = ['builts/development/*.html'];
-
 gulp.task('html', function () {
 	gulp
 		.src(htmlFiles)
@@ -81,13 +77,24 @@ gulp.task('html', function () {
 });
 
 // JSON files
-jsonFiles = ['builts/development/js/*.json'];
-
 gulp.task('json', function () {
 	gulp
 		.src(jsonFiles)
 		.pipe(gulpif(env === 'production', minifyJson()))
 		.pipe(gulp.dest(outputDir + 'js'))
+		.pipe(connect.reload())
+});
+
+// Images files
+gulp.task('img', function () {
+    gulp
+		.src(imgFiles)
+        .pipe(gulpif(env === 'production', imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngcrush()]
+        })))
+		.pipe(gulpif(env === 'production', gulp.dest(outputDir+ 'images')))
 		.pipe(connect.reload())
 });
 
@@ -102,13 +109,13 @@ gulp.task('connect', function () {
 
 // Gulp watch
 gulp.task('watch', function () {
-	gulp.watch(coffeeFiles, ['coffee']);
 	gulp.watch(jsFiles, ['js']);
 	gulp.watch('components/sass/*.scss', ['compass']);	
 	gulp.watch(htmlFiles, ['html']);
 	gulp.watch(jsonFiles, ['json']);
+	gulp.watch(imgFiles, ['img']);
 });
 
 
-gulp.task('default', ['coffee', 'js', 'json', 'compass', 'connect', 'watch']);
+gulp.task('default', ['js', 'json', 'compass', 'img', 'connect', 'watch']);
 
