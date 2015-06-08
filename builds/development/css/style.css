@@ -55,13 +55,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 body {
-  background: #eddbba;
+  background: #F1F1F1;
   font-family: serif;
   font-size: 1.1em;
 }
 
 #content {
-  color: #464B65;
+  color: #073642;
   font-size: 2em;
 }
 
