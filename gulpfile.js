@@ -1,7 +1,6 @@
 var gulp = require('gulp'),
 	gulpUtil = require('gulp-util'),
 	concat = require('gulp-concat'),
-	browserify = require('gulp-browserify'),
 	compass = require('gulp-compass'),
 	autoprefixer = require('gulp-autoprefixer'),
 	connect = require('gulp-connect'),
@@ -15,7 +14,10 @@ var gulp = require('gulp'),
 
 // File Location vars
 var htmlFiles = ['builds/development/*.html'],
-	jsFiles   = ['components/scripts/*.js'],
+	jsFiles   = [
+		'components/scripts/libs/*.js',
+		'components/scripts/*.js'
+	],
 	sassFiles = ['components/sass/style.scss'],
 	htmlFiles = ['builds/development/*.html'],
 	jsonFiles = ['builds/development/js/*.json'],
@@ -45,7 +47,6 @@ gulp.task('js', function () {
 	gulp
 		.src(jsFiles)
 		.pipe(concat('script.js'))
-		.pipe(browserify())
 		.pipe(gulpif(env === 'production', uglify()))
 		.pipe(gulp.dest(outputDir + 'js'))
 		.pipe(connect.reload())

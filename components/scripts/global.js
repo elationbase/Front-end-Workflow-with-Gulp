@@ -1,5 +1,3 @@
-$ = require('jquery');
-
 // remap jQuery to $
 (function($){
 
