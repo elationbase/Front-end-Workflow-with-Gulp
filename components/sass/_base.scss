@@ -1,13 +1,13 @@
 // _base.scss
 // ==============
 body {
-  background: lighten($beige, 10%);
+  background: $light;
   font-family: $bodyFont;
   font-size: 1.1em;
 }
  
 #content {
-  color: $desatBlue;
+  color: $dark; 
   font-size: 2em;
 }
  

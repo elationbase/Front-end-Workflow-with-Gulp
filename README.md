@@ -33,18 +33,7 @@ $ npm install gulp --save-dev
 ```
 #### Install gulp dependency modules
 ```
-$ npm install --save-dev gulp-gulpUtil 
-$ npm install --save-dev gulp-concat 
-$ npm install --save-dev gulp-browserify 
-$ npm install --save-dev gulp-compass 
-$ npm install --save-dev gulp-autoprefixer 
-$ npm install --save-dev gulp-connect 
-$ npm install --save-dev gulp-if 
-$ npm install --save-dev gulp-uglify 
-$ npm install --save-dev gulp-minify-html 
-$ npm install --save-dev gulp-jsonminify 
-$ npm install --save-dev gulp-imagemin 
-$ npm install --save-dev gulp-pngcrush
+$ npm install
 ```
 	
 ### Run gulp project
