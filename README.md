@@ -21,15 +21,11 @@ cd /Users/YOUR_NAME/Downloads/workflow-master
 
 ### Install Project
 #### Install <a href="http://gulpjs.com/">gulp</a>
-_Note: If you ahve any erros installing gulp or it's modules, try using "sudo" before "npm install"_
+_Note: If you have any erros installing gulp or it's modules, try using "sudo" before "npm install"_
 
 if you don't have gulp installed globally 
 ```
 $ npm install gulp -g
-```
-#### Install gulp in your project
-```
-$ npm install gulp --save-dev
 ```
 #### Install gulp dependency modules
 ```
